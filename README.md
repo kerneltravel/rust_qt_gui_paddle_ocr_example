@@ -42,7 +42,7 @@ cargo build --release
 
 ## 开源地址：
 1. [gitee](https://gitee.com/kjpioo2006/rust_qt_gui_paddle_ocr_example)
-2. [github](https://gitee.com/kerneltravel/rust_qt_gui_paddle_ocr_example)
+2. [github](https://github.com/kerneltravel/rust_qt_gui_paddle_ocr_example)
 
 ## License
 Apache-2.0
