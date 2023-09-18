@@ -1,0 +1,19 @@
+[package]
+name = "basic_form"
+version = "0.0.0"
+authors = ["Pavel Strakhov <ri@idzaaus.org>"]
+edition = "2018"
+publish = false
+description = "Qt examples"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/rust-qt/examples"
+
+[dependencies]
+cpp_core = "0.6.0"
+qt_core = "0.5.0"
+qt_gui = "0.5.0"
+qt_widgets = "0.5.0"
+qt_ui_tools = "0.5.0"
+paddleocr = "0.3.0"
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }

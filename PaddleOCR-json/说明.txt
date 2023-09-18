@@ -1,0 +1,7 @@
+本文件夹内容，请从 
+https://github.com/hiroi-sora/Umi-OCR/tree/main/PaddleOCR-json 整个目录的内容复制到
+本文件夹内。
+
+最终 ，PaddleOCR-json/ 目录下会有 PaddleOCR_json.exe 等的文件和目录。
+
+cargo build 时，会根据 build.rs 将 PaddleOCR-json/ 目录 复制到 target/release 或 target/debug 目录下。
