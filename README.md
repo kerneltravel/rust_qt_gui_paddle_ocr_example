@@ -1,3 +1,4 @@
+[中文版说明](README.md), [英文版说明](README.en.md)
 ## 功能效果
 基于paddleOCR 的图片文字识别（OCR）桌面软件。
 
@@ -38,6 +39,10 @@ cargo build
 ```
 cargo build --release
 ```
+
+## 开源地址：
+1. [gitee](https://gitee.com/kjpioo2006/rust_qt_gui_paddle_ocr_example)
+2. [github](https://gitee.com/kerneltravel/rust_qt_gui_paddle_ocr_example)
 
 ## License
 Apache-2.0

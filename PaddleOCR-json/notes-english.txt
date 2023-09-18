@@ -1,0 +1,5 @@
+Please translate the following content to English: "The contents of this folder should be copied from the entire directory at https://github.com/hiroi-sora/Umi-OCR/tree/main/PaddleOCR-json to this folder.
+
+In the end, there will be files and directories such as PaddleOCR_json.exe under the PaddleOCR-json/ directory.
+
+During the 'cargo build' process, the build.rs script will copy the PaddleOCR-json/ directory to the target/release or target/debug directory."
