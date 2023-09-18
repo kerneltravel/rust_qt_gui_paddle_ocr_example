@@ -5,11 +5,12 @@ src/ocr.rs  文件的来源：
 然后
 ```
 cd src/
-ruic.exe -o uic.rs --all mainwindow.ui 就会得到src/uic.rs
-
+ruic.exe -o uic.rs --all mainwindow.ui
 ```
+就会得到src/uic.rs
 
 注意： 
 1. ruic.exe 对 QT5 的Line 类 不支持。需要将uic.rs中重复的声明和 Line 相关的声明删掉。
 2. 编译环境要求：qt 5.14.0或低于该版本的qt。windows 10系统。rust qt在windows下的环境要求在有 msvc 编译器的环境，
 所以建议使用：打开【适用于 VS 2017 的 x64 本机工具命令提示】后cd到项目目录下进行cargo 操作。
+3. 在cargo build 之前，要确保按照 【PaddleOCR-json\说明.txt】 文件的要求放置好  PaddleOCR-json 的文件。
