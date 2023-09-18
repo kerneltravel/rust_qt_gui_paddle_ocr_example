@@ -23,7 +23,7 @@ You will get src/uic.rs. Currently, src/uic.rs is already included, so there is 
 1. `ruic.exe` does not support the Line class of QT5. You need to remove duplicate declarations and Line-related declarations in `uic.rs`.
 2. Compilation environment requirements: QT 5.14.0 or a version lower than that. Windows 10 system. Rust QT environment on Windows requires the presence of the MSVC compiler, so it is recommended to use the "x64 Native Tools Command Prompt for VS 2017" and navigate to the project directory for cargo operations.
 3. Before `cargo build`, make sure to place the files of PaddleOCR-json according to the requirements in "PaddleOCR-json\notes-english.txt".
-4. The code in `main.rs` such as `pub type OcrResult = Vec<Root>;` refers to https://gitee.com/toobo/PaddleOCRRust/blob/master/src/entity.rs. Thanks to toobo (ZHao) for the reference!
+4. The code in `main.rs` such as `pub type OcrResult = Vec<Root>;` refers to https://gitee.com/toobo/PaddleOCRRust/blob/master/src/entity.rs. Thanks to toobo (ZHao) for the reference! thanks to project [PaddleOCR-json](https://github.com/hiroi-sora/PaddleOCR-json).
 
 
 ## How to Compile:
