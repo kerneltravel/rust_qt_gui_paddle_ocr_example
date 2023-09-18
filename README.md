@@ -1,20 +1,11 @@
 ## 功能效果
+基于paddleOCR 的图片文字识别（OCR）桌面软件。
+
 ![](demo_images/VmwZEEkuPG.jpg)
 
 带调试界面的运行效果：
 ![](demo_images/uQA9189Wam.jpg)
 
-## 如何编译：
-
-### 编译测试版
-```
-cargo build
-```
-
-### 编译生产版
-```
-cargo build --release
-```
 
 ## src/ocr.rs  文件的来源：
 
@@ -34,6 +25,19 @@ ruic.exe -o uic.rs --all mainwindow.ui
 3. 在cargo build 之前，要确保按照 【PaddleOCR-json\说明.txt】 文件的要求放置好  PaddleOCR-json 的文件。
 4. main.rs 中 `pub type OcrResult = Vec<Root>;` 等代码参考了 https://gitee.com/toobo/PaddleOCRRust/blob/master/src/entity.rs ，在此向toobo（ ZHao ）表示感谢！
 
+
+
+## 如何编译：
+由于技术栈基于 Rust + Qt 5.14.0 + paddleOCR(C++)，所以需要借助一些rust crate库实现。编译过程已通过build.rs 脚本进行了一键封装。
+### 编译测试版
+```
+cargo build
+```
+
+### 编译生产版
+```
+cargo build --release
+```
 
 ## License
 Apache-2.0
