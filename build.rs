@@ -15,7 +15,7 @@ fn main() -> io::Result<()> {
     let current_dir = env::current_dir().expect("Failed to get current directory");
     let dest_path = current_dir.join("target").join(target_dir);
     fs::create_dir_all(&dest_path).unwrap();
-    //copy_directory(Path::new("./bin/"), &dest_path)?;
+    copy_directory(Path::new("./demo_images/"), &dest_path.join("demo_images"))?;
     copy_directory(
         Path::new("./PaddleOCR-json/"),
         &dest_path.join("PaddleOCR-json"),
