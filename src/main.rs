@@ -7,6 +7,7 @@ use qt_widgets::{QApplication, QFileDialog, QMessageBox, QWidget};
 use serde_json;
 use std::{rc::Rc, str::FromStr};
 mod ocr;
+mod pdf;
 mod uic;
 
 use serde::{Deserialize, Serialize};

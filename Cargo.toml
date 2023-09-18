@@ -17,3 +17,4 @@ qt_ui_tools = "0.5.0"
 paddleocr = "0.3.0"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
+pdf-extract = "0.7.2"
