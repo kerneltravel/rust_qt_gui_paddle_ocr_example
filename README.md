@@ -1,4 +1,4 @@
-[中文版说明](README.md), [英文版说明](README.en.md)
+[中文版说明](README.md), [english readme](README.en.md)
 ## 功能效果
 基于paddleOCR 的图片文字识别（OCR）桌面软件。
 
