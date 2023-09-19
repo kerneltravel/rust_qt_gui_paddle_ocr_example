@@ -6,6 +6,7 @@ use qt_core::{qs, slot, QDateTime, QObject, QString, SlotNoArgs};
 use qt_widgets::{QApplication, QFileDialog, QMessageBox, QWidget};
 use serde_json;
 use std::{rc::Rc, str::FromStr};
+mod filemd5;
 mod ocr;
 mod pdf;
 mod uic;
