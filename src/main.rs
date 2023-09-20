@@ -4,12 +4,11 @@
 use cpp_core::{CastInto, NullPtr, Ptr, StaticUpcast};
 use qt_core::{qs, slot, QDateTime, QObject, QString, SlotNoArgs};
 use qt_widgets::{QApplication, QFileDialog, QMessageBox, QWidget};
+use serde::{Deserialize, Serialize};
 use serde_json;
-use std::{rc::Rc, str::FromStr};
 use std::future::Future;
 use std::thread;
-use serde::{Deserialize, Serialize};
-
+use std::{rc::Rc, str::FromStr};
 
 //#[macro_use] define in 'root crate' or 'mod.rs' or 'main.rs'
 #[macro_use]
@@ -18,7 +17,6 @@ extern crate rbatis;
 use rbatis::crud::CRUD;
 use rbatis::crud_table;
 use rbatis::impl_field_name_method;
-
 
 mod filemd5;
 mod ocr;
@@ -141,7 +139,6 @@ impl HelloWorld {
                                                           //.add_item_q_string(qt_core::QString { all_result });
     }
 }
-
 
 /// may also write `CRUDTable` as `impl CRUDTable for BizActivity{}`
 /// #[crud_table]
@@ -283,6 +280,8 @@ pub async fn main() {
       //Exec ==> INSERT INTO biz_activity (create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ),( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )
 
       */
+    let 测试 = 1;
+    println!("{}", 测试);
     mytest().await;
     QApplication::init(|app| unsafe {
         //根据 https://github.com/jnbooth/ruic 的说法，
