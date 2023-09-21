@@ -159,12 +159,13 @@ jobs:
       # tag 上传Release
       - name: uploadRelease
         id: uploadRelease
-        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/upload-release-asset@v1.0.1
+          archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_target }}-${{ matrix.qt_arch }}
+        if: startsWith(github.event.ref, 'refs/tags/')
         with:
-          upload_url: ${{ env.uploadUrl }}
-          asset_: ./${{ env.packageName }}.zip
-          asset_name: ${{ env.packageName }}.zip
+          asset_: ./${{ env.archiveName }}.zip
+          asset_name: ${{ env.archiveName }}.zip
           asset_content_type: application/zip
+        
