@@ -94,37 +94,10 @@ jobs:
           # echo "packageName=$name" >> "$GITHUB_ENV"
           # 打印环境变量packageName
           Write-Host 'packageName:'${env:packageName}
-      # tag 查询github-Release
-      - name: queryReleaseWin
-        id: queryReleaseWin
-        if: startsWith(github.event.ref, 'refs/tags/')
-        shell: pwsh
-        env:
-          githubFullName: ${{ github.event.repository.full_name }}
-          ref: ${{ github.event.ref }}
-        run: |
-          [string]$tag = ${env:ref}.Substring(${env:ref}.LastIndexOf('/') + 1)
-          [string]$url = 'https://api.github.com/repos/' + ${env:githubFullName} + '/releases/tags/' + ${tag}
-          $response={}
-          try {
-            $response = Invoke-RestMethod -Uri $url -Method Get
-          } catch {
-            Write-Host "StatusCode:" $_.Exception.Response.StatusCode.value__ 
-            Write-Host "StatusDescription:" $_.Exception.Response.StatusDescription
-            # 没查到，输出
-            echo "::set-output name=needCreateRelease::true"  
-            return
-          }
-          [string]$latestUpUrl = $response.upload_url
-          Write-Host 'latestUpUrl:'$latestUpUrl
-          if ($latestUpUrl.Length -eq 0) {
-            # 没查到，输出
-            echo "::set-output name=needCreateRelease::true"  
-          }
       # tag 创建github-Release
       - name: createReleaseWin
         id: createReleaseWin
-        if: startsWith(github.event.ref, 'refs/tags/') && steps.queryReleaseWin.outputs.needCreateRelease == 'true'
+        if: startsWith(github.event.ref, 'refs/tags/')
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_target }}-${{ matrix.qt_arch }}
