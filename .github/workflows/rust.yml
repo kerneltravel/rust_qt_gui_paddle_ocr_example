@@ -61,6 +61,9 @@ jobs:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
+          rustup toolchain install stable-x86_64-pc-windows-msvc
+          rustup target add x86_64-pc-windows-msvc
+          rustup set default-host x86_64-pc-windows-msvc
           cargo build    
       # tag 打包
       - name: package
