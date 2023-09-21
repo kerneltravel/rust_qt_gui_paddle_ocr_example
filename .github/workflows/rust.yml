@@ -76,7 +76,6 @@ jobs:
           Compress-Archive -Path ${env:archiveName} ${env:archiveName}'.zip'
           # 记录环境变量packageName给后续step
           $name = ${env:archiveName}
-          #echo "::set-env name=packageName::$name"
           echo "packageName=$name" >> "$GITHUB_ENV"
           # 打印环境变量packageName
           Write-Host 'packageName:'${env:packageName}
@@ -133,7 +132,6 @@ jobs:
           # upUrl不为空，导出就完事
           if (${env:upUrl}.Length -gt 0) {
               $v=${env:upUrl}
-              #echo "::set-env name=uploadUrl::$v"
               echo "uploadUrl=$v" >> "$GITHUB_ENV"
               return
           } 
@@ -142,7 +140,6 @@ jobs:
           $response = Invoke-RestMethod -Uri $url -Method Get
           [string]$latestUpUrl = $response.upload_url
           Write-Host 'latestUpUrl:'$latestUpUrl
-          #echo "::set-env name=uploadUrl::$latestUpUrl"
           echo "uploadUrl=$latestUpUrl" >> "$GITHUB_ENV"
           Write-Host 'env uploadUrl:'${env:uploadUrl}
       # tag 上传Release
