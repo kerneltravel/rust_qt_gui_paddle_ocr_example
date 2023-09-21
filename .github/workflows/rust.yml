@@ -17,7 +17,7 @@ env:
 jobs:
   build:
     name: Build
-    # 运行平台， windows-latest目前是windows server 2019
+    # 运行平台， windows-latest目前是windows server 2017
     runs-on: windows-latest
     strategy:
       # 矩阵配置
@@ -34,6 +34,7 @@ jobs:
       targetName: HelloActions-Qt.exe
     # 步骤
     steps:  
+      - uses: ilammy/msvc-dev-cmd@v1
       # 安装Qt
       - name: Install Qt
         # 使用外部action。这个action专门用来安装Qt
@@ -65,9 +66,6 @@ jobs:
         shell: cmd
         env:
           vc_arch: ${{ matrix.msvc_arch }}
-        with:
-          name: PATH
-          value: $env:PATH;"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build"
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
           rustup toolchain install stable-x86_64-pc-windows-msvc
@@ -167,6 +165,6 @@ jobs:
         uses: actions/upload-release-asset@v1.0.1
         with:
           upload_url: ${{ env.uploadUrl }}
-          asset_path: ./${{ env.packageName }}.zip
+          asset_: ./${{ env.packageName }}.zip
           asset_name: ${{ env.packageName }}.zip
           asset_content_type: application/zip
