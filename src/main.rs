@@ -184,7 +184,7 @@ pub async fn mytest() {
     let rb = rbatis::rbatis::Rbatis::new();
     println!("in mydb_test func1");
     /// connect to database  
-    let linkstatus = rb.link("sqlite://sqlite3.db").await;
+    let linkstatus = rb.link("sqlite://../../sqlite3.db").await;
     match linkstatus {
         Ok(_) => println!("connect to database success"),
         Err(x) => println!("connect to database error {}", x),
@@ -195,40 +195,66 @@ pub async fn mytest() {
     //Query ==> SELECT create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version  FROM biz_activity WHERE delete_flag = 1  AND id =  ?
     println!("一条记录： {:?}", result);
     /*  query all */
-    let results: Vec<Posts> = rb.fetch_list().await.unwrap();
+    let result: Vec<Posts> = rb.fetch_list().await.unwrap();
     //Query ==> SELECT create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version  FROM biz_activity WHERE delete_flag = 1
-    println!("所有记录： {:?}", results);
+    println!("所有记录： {:?}", result);
 
-    /*
+    let post = Posts {
+        id: Some(4),
+        title: Some(String::from("title4")),
+        content: Some(String::from("content4")),
+        create_time: Some(rbatis::DateTimeNative::now()),
+    };
+    /// saving
+    rb.save(&post, &[]).await;
+    //Exec ==> INSERT INTO biz_activity (create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )
+
     ///query by id vec
-    let result: Vec<Posts> = rb.list_by_column("id", &["1"]).await.unwrap();
+    let result: Vec<Posts> = rb.fetch_list_by_column("id", &[2, 4]).await.unwrap();
+    println!("指定id=2,4 的所有记录： {:?}", result);
     //Query ==> SELECT create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version  FROM biz_activity WHERE delete_flag = 1  AND id IN  (?)
 
+    /*
     ///query by wrapper
-    let r: Result<Option<Posts>, Error> = rb.fetch_by_wrapper(rb.new_wrapper().eq("id", "1")).await;
+    let result: Result<Option<Posts>, Error> =
+        rb.fetch_by_wrapper(rb.new_wrapper().eq("id", 1)).await;
+    println!("指定id=1 的所有记录： {:?}", result);
     //Query ==> SELECT  create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version  FROM biz_activity WHERE delete_flag = 1  AND id =  ?
+    */
 
     ///delete
-    rb.remove_by_column::<Posts, _>("id", &"1").await;
+    rb.remove_by_column::<Posts, _>("id", 1).await;
     //Exec ==> UPDATE biz_activity SET delete_flag = 0 WHERE id = 1
 
+    let result: Vec<Posts> = rb.fetch_list().await.unwrap();
+    //Query ==> SELECT create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version  FROM biz_activity WHERE delete_flag = 1
+    println!("删除id=1以后的所有记录： {:?}", result);
+
+    /*
     ///delete batch
     rb.remove_batch_by_column::<Posts, _>("id", &["1", "2"])
         .await;
     //Exec ==> UPDATE biz_activity SET delete_flag = 0 WHERE id IN (  ?  ,  ?  )
+    */
 
     ///update
-    let mut activity = activity.clone();
-    let r = rb.update_by_column("id", &activity).await;
+    //let activity = "posts";
+    let mut post = post.clone();
+    post.title = Some(String::from("new title 4"));
+    let r = rb.update_by_column("id", &post).await;
     //Exec   ==> update biz_activity set  status = ?, create_time = ?, version = ?, delete_flag = ?  where id = ?
-    rb.update_by_wrapper(
+    /*rb.update_by_wrapper(
         &activity,
         rb.new_wrapper().eq("id", "12312"),
         &[Skip::Value(&serde_json::Value::Null), Skip::Column("id")],
     )
-    .await;
+    .await;*/
+    match r {
+        Ok(res) => println!("update column to new title ok"),
+        Err(e) => println!("update column to new title err {}", e),
+    }
     //Exec ==> UPDATE biz_activity SET  create_time =  ? , delete_flag =  ? , status =  ? , version =  ?  WHERE id =  ?
-    */
+
     //let ret: i32 = 42;
     //future::ok(ret)
 }
@@ -280,8 +306,6 @@ pub async fn main() {
       //Exec ==> INSERT INTO biz_activity (create_time,delete_flag,h5_banner_img,h5_link,id,name,pc_banner_img,pc_link,remark,sort,status,version) VALUES ( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? ),( ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? , ? )
 
       */
-    let 测试 = 1;
-    println!("{}", 测试);
     mytest().await;
     QApplication::init(|app| unsafe {
         //根据 https://github.com/jnbooth/ruic 的说法，
