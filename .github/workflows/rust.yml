@@ -85,12 +85,13 @@ jobs:
           # 拷贝exe
           Copy-Item target\x86_64-pc-windows-msvc\debug\${env:targetName} ${env:archiveName}\
           # 拷贝依赖
-          windeployqt --qmldir . ${env:archiveName}\${env:targetName}
+          # windeployqt --qmldir . ${env:archiveName}\${env:targetName}
           # 打包zip
           Compress-Archive -Path ${env:archiveName} ${env:archiveName}'.zip'
           # 记录环境变量packageName给后续step
           $name = ${env:archiveName}
           echo "packageName=$name" >> "$GITHUB_ENV"
+          # echo "packageName=$name" >> "$GITHUB_ENV"
           # 打印环境变量packageName
           Write-Host 'packageName:'${env:packageName}
       # tag 查询github-Release
@@ -126,46 +127,8 @@ jobs:
         if: startsWith(github.event.ref, 'refs/tags/') && steps.queryReleaseWin.outputs.needCreateRelease == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/create-release@v1.0.0
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      # 重定向upload_url到环境变量uploadUrl。
-      - name: getLatestTagRelease
-        # tag 上一步无论成功还是失败都执行
-        if: startsWith(github.event.ref, 'refs/tags/')
-        shell: pwsh
-        env:
-          githubFullName: ${{ github.event.repository.full_name }}
-          upUrl: ${{ steps.createReleaseWin.outputs.upload_url }}
-          ref: ${{ github.event.ref }}
-        run: |
-          # upUrl不为空，导出就完事
-          if (${env:upUrl}.Length -gt 0) {
-              $v=${env:upUrl}
-              echo "uploadUrl=$v" >> "$GITHUB_ENV"
-              return
-          } 
-          [string]$tag = ${env:ref}.Substring(${env:ref}.LastIndexOf('/') + 1)
-          [string]$url = 'https://api.github.com/repos/' + ${env:githubFullName} + '/releases/tags/' + ${tag}
-          $response = Invoke-RestMethod -Uri $url -Method Get
-          [string]$latestUpUrl = $response.upload_url
-          Write-Host 'latestUpUrl:'$latestUpUrl
-          echo "uploadUrl=$latestUpUrl" >> "$GITHUB_ENV"
-          Write-Host 'env uploadUrl:'${env:uploadUrl}
-      # tag 上传Release
-      - name: uploadRelease
-        id: uploadRelease
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_target }}-${{ matrix.qt_arch }}
-        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
         with:
-          asset_: ./${{ env.archiveName }}.zip
-          asset_name: ${{ env.archiveName }}.zip
-          asset_content_type: application/zip
-        
+          files: ${{ env.archiveName }}.zip
+      
