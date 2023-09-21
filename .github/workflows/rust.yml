@@ -60,13 +60,8 @@ jobs:
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
-      
-      - name: cargo
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
+          cargo build    
       # tag 打包
       - name: package
         if: startsWith(github.event.ref, 'refs/tags/')
