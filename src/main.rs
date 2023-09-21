@@ -11,21 +11,25 @@ use std::thread;
 use std::{rc::Rc, str::FromStr};
 mod winhelloworld;
 use winhelloworld::HelloWorld;
-//#[macro_use] define in 'root crate' or 'mod.rs' or 'main.rs'
+
+//================================================================
+///#[macro_use] define in 'root crate' or 'mod.rs' or 'main.rs'。
+///要求 #[macro_use] 必须在 root crate 中定义。 也就是在 main.rs中写下面两句，启用。
 #[macro_use]
 extern crate rbatis;
-
+/// macro_use是 Rust 中的一个编译时宏，用于在代码中使用其他宏。
+/// 例如，假设有一个名为macro_x的宏，它定义了一段代码：
+/// fn macro_x() {
+/// println!("This is macro_x");
+///}
+/// 如果要在代码中使用macro_x宏，可以这样写：
+/// macro_use! { macro_x };
+//================================================================
 mod filemd5;
 mod ocr;
 mod pdf;
 mod sqlops;
 mod uic;
-
-/// may also write `CRUDTable` as `impl CRUDTable for BizActivity{}`
-/// #[crud_table]
-/// #[crud_table(table_name:biz_activity)]
-/// #[crud_table(table_name:"biz_activity"|table_columns:"id,name,version,delete_flag")]
-/// #[crud_table(table_name:"biz_activity"|table_columns:"id,name,version,delete_flag"|formats_pg:"id:{}::uuid")]
 
 #[tokio::main]
 pub async fn main() {
