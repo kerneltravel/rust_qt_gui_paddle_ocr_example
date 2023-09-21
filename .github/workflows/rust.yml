@@ -65,6 +65,9 @@ jobs:
         shell: cmd
         env:
           vc_arch: ${{ matrix.msvc_arch }}
+        with:
+          name: PATH
+          value: $env:PATH;"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build"
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
           rustup toolchain install stable-x86_64-pc-windows-msvc
