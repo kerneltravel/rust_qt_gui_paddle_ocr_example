@@ -83,7 +83,7 @@ jobs:
           # 创建文件夹
           New-Item -ItemType Directory ${env:archiveName}
           # 拷贝exe
-          Copy-Item target\debug\${env:targetName} ${env:archiveName}\
+          Copy-Item target\x86_64-pc-windows-msvc\debug\${env:targetName} ${env:archiveName}\
           # 拷贝依赖
           windeployqt --qmldir . ${env:archiveName}\${env:targetName}
           # 打包zip
