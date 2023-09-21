@@ -64,7 +64,7 @@ jobs:
           rustup toolchain install stable-x86_64-pc-windows-msvc
           rustup target add x86_64-pc-windows-msvc
           rustup set default-host x86_64-pc-windows-msvc
-          cargo build    
+          cargo build --target x86_64-pc-windows-msvc
       # tag 打包
       - name: package
         if: startsWith(github.event.ref, 'refs/tags/')
